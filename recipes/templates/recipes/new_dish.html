@@ -1,0 +1,10 @@
+{% extends 'recipes/base.html' %}
+{% block title %}Новый рецепт{% endblock title %}
+{% block content %}
+<h2>Новый рецепт!</h2>
+<form action="{% url 'recipes:new_dish' %}" method="post" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+     <button name="submit" class="btn btn-primary">Добавить новый рецепт</button>
+</form>
+{% endblock content %}

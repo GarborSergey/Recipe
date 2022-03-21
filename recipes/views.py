@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
+from .forms import DishForm
 from recipes.models import DishCategory, Dish
+from django.urls import reverse
 
 def home(request):
     return render(request, 'recipes/home.html')
@@ -33,3 +35,15 @@ def search(request):
             context = {'dishes': dishes, 'query': q}
             return render(request, 'recipes/result_form.html', context)
     return render(request, 'recipes/search_form.html', {'errors': errors})
+
+def new_dish(request):
+    """Добавление нового рецепта"""
+    if request.method != 'POST':
+        form = DishForm()
+    else:
+        form = DishForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('recipes:home'))
+    context = {'form': form}
+    return render(request, 'recipes/new_dish.html', context)
