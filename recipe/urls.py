@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+# В примере полного руководства по джанго
+from django.conf.urls import *
 
 urlpatterns = [
+    # Первое это строка с шаблоном(регулярное выражение)
+    # Второе функция представления соответствующая этому шаблону
     path('admin/', admin.site.urls),
+    # Домашняя страница приложения рецепты
+    path('', include('recipes.urls', namespace='recipes')),
+    # аккаунты
+    path('accounts/', include('django.contrib.auth.urls')),
+    # Главная страница приложения users
+    path('users/', include('users.urls', namespace='users'))
 ]

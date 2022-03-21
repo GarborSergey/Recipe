@@ -1,0 +1,15 @@
+{% extends 'recipes/base.html' %}
+{% block title %}Категории блюд{% endblock title %}
+{% block content %}
+    <ul>
+        {% for category in dish_categories %}
+        <li>
+            <h3><a href="{% url 'recipes:category' category.id %}"> {{ category }}</a></h3>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+{% block footer %}
+    <hr>
+    <center><a href="{% url 'recipes:home' %}">Главная страница</a></center>
+{% endblock footer %}

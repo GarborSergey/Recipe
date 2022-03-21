@@ -1,0 +1,14 @@
+{% extends 'recipes/base.html' %}
+{% block title %}{{ category }}{% endblock title %}
+{% block content %}
+    <ul>
+        {% for dish in dishes %}
+        <li>
+            <h3>{{ dish }}</h3>
+            <p>{{ dish.introduction }}</p>
+        </li>
+        {% empty %}
+        <li>Пока-что ни одного блюда не добавлено в эту категорию.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

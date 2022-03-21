@@ -1,0 +1,20 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}Вход{% endblock title %}
+{% block content %}
+    <form method="post" action="{% url 'login' %}" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit" class="btn btn-primary">Войти</button>
+        <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
+    </form>
+{% endblock content %}
+{% block footer %}
+    <hr>
+    <form action="{% url 'users:signup' %}">
+        <center>
+            Вы еще не зарегистрированы? Скорее испрвьте это!
+            <button name="submit">Регистрация</button>
+        </center>
+    </form>
+{% endblock footer %}
