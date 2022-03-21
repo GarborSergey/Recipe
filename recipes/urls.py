@@ -13,6 +13,8 @@ urlpatterns = [
     # Страница с поиском
     path('search/', views.search, name='search'),
     # Страница с добовлением нового рецепта
-    path('new_dish/', views.new_dish, name='new_dish')
+    path('new_dish/', views.new_dish, name='new_dish'),
+    # Страница с обратной связью
+    path('contact/', views.contact, name='contact')
 
 ]

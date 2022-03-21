@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
-from .forms import DishForm
+from .forms import DishForm, ContactForm
 from recipes.models import DishCategory, Dish
 from django.urls import reverse
+from django.core.mail import send_mail
+from recipe import settings
 
 def home(request):
     return render(request, 'recipes/home.html')
+
 
 def dish_categories(request):
     """Выводит все категории блюд"""
@@ -14,12 +17,14 @@ def dish_categories(request):
     context = {'dish_categories': dish_categories}
     return render(request, 'recipes/dish_categories.html', context)
 
+
 def category(request, category_id):
     """Выводит все блюда из категории"""
     category = DishCategory.objects.get(id=category_id)
     dishes = category.dish_set.all()
     context = {'category': category, 'dishes': dishes}
     return render(request, 'recipes/dishes.html', context)
+
 
 def search(request):
     """Поиск по названию блюда"""
@@ -36,6 +41,7 @@ def search(request):
             return render(request, 'recipes/result_form.html', context)
     return render(request, 'recipes/search_form.html', {'errors': errors})
 
+
 def new_dish(request):
     """Добавление нового рецепта"""
     if request.method != 'POST':
@@ -47,3 +53,23 @@ def new_dish(request):
             return HttpResponseRedirect(reverse('recipes:home'))
     context = {'form': form}
     return render(request, 'recipes/new_dish.html', context)
+
+
+def contact(request):
+    """Обратная связь"""
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            send_mail(
+                cd['subject'],
+                cd['message'],
+                settings.EMAIL_HOST_USER,
+                ['garborfersru@gmail.com']
+            )
+            return render(request, 'recipes/thanks_form.html')
+    else:
+        form = ContactForm(
+            initial={'subject': 'Мне очень нравится ваш сайт!'}
+        )
+    return render(request, 'recipes/contact_form.html', {'form': form})

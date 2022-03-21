@@ -14,5 +14,10 @@
 {% endblock content %}
 {% block footer %}
     <hr>
+    <center>
     <h3 align="center">Обратная связь: garborfersru@gmail.com</h3>
+    <form action="{% url 'recipes:contact' %}">
+        <button name="submit">Написать отзыв</button>
+    </form>
+        </center>
 {% endblock footer %}

@@ -130,3 +130,9 @@ LOGIN_REDIRECT_URL = 'recipes:home'
 LOGOUT_REDIRECT_URL = "recipes:home"
 # Страница входа
 LOGIN_URL = 'login'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST_USER = 'recipecontact@mail.ru'
+EMAIL_HOST_PASSWORD = 'kQmie3WqpsZ6JhSPWAQ5'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True

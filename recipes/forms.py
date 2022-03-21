@@ -7,3 +7,8 @@ class DishForm(forms.ModelForm):
         fields = ['category', 'name', 'introduction', 'ingredients_input', 'ingredients_num', 'time_cook', 'recipe']
         labels = {'category': 'Категория блюда', 'name': 'Название', 'introduction': 'Краткое описание',
                   'ingredients_input': 'Ингредиенты', 'ingredients_num': 'кол-во ингредиентов', 'time_cook': 'время приготовления', 'recipe': 'рецепт'}
+
+class ContactForm(forms.Form):
+    subject = forms.CharField(max_length=100)
+    email = forms.EmailField(required=False) # делает поле необязательным
+    message = forms.CharField(widget=forms.Textarea)
