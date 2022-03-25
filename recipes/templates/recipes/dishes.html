@@ -6,6 +6,7 @@
         <li>
             <h3>{{ dish }}</h3>
             <p>{{ dish.introduction }}</p>
+            <a href="{% url 'recipes:dish' dish.id %}">Показать рецепт полностью</a>
         </li>
         {% empty %}
         <li>Пока-что ни одного блюда не добавлено в эту категорию.</li>

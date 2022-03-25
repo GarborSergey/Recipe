@@ -6,6 +6,8 @@ from recipes.models import DishCategory, Dish
 from django.urls import reverse
 from django.core.mail import send_mail
 from recipe import settings
+from django.contrib.auth.decorators import login_required
+import random
 
 def home(request):
     return render(request, 'recipes/home.html')
@@ -26,6 +28,13 @@ def category(request, category_id):
     return render(request, 'recipes/dishes.html', context)
 
 
+def dish(request, dish_id):
+    """Выводит рецепт блюда"""
+    dish = Dish.objects.get(id=dish_id)
+    context = {'dish': dish}
+    return render(request, 'recipes/dish.html', context)
+
+
 def search(request):
     """Поиск по названию блюда"""
     errors = []
@@ -41,7 +50,7 @@ def search(request):
             return render(request, 'recipes/result_form.html', context)
     return render(request, 'recipes/search_form.html', {'errors': errors})
 
-
+@login_required
 def new_dish(request):
     """Добавление нового рецепта"""
     if request.method != 'POST':
@@ -63,7 +72,7 @@ def contact(request):
             cd = form.cleaned_data
             send_mail(
                 cd['subject'],
-                cd['message'],
+                cd['message'] + ' отправленно пользователем:' + cd['email'],
                 settings.EMAIL_HOST_USER,
                 ['garborfersru@gmail.com']
             )
@@ -73,3 +82,9 @@ def contact(request):
             initial={'subject': 'Мне очень нравится ваш сайт!'}
         )
     return render(request, 'recipes/contact_form.html', {'form': form})
+
+def random_dish(request):
+    all_dish = Dish.objects.all()
+    dish = random.choice(all_dish)
+    context = {'dish': dish}
+    return render(request, 'recipes/dish.html', context)

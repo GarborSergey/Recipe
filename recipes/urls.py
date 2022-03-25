@@ -15,6 +15,10 @@ urlpatterns = [
     # Страница с добовлением нового рецепта
     path('new_dish/', views.new_dish, name='new_dish'),
     # Страница с обратной связью
-    path('contact/', views.contact, name='contact')
+    path('contact/', views.contact, name='contact'),
+    # Страница с рецептом
+    path('dish/<int:dish_id>', views.dish, name='dish'),
+    # Страница со случайным рецептом
+    path('random_dish/', views.random_dish, name='random_dish')
 
 ]
