@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -24,10 +25,12 @@ class Dish(models.Model):
     name = models.CharField("наименование блюда", max_length=200)
     date_added = models.DateTimeField(auto_now_add=True)
     introduction = models.TextField('краткое описание блюда')
-    ingredients_input = models.ManyToManyField(Ingredients, verbose_name='ингредиенты')
-    ingredients_num = models.CharField("количество ингредиентов", max_length=3)
+    # Ингредиенты вводить строго форматом: "ингредиент - кол-во" пример - "молоко - 200мл" "растительное_масло 2столовой_ложки"
+    ingredients_input = models.TextField(verbose_name='ингредиенты')
+    ingredients_num = models.IntegerField()
     time_cook = models.CharField("время приготовления", max_length=30)
     recipe = models.TextField("рецепт блюда")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

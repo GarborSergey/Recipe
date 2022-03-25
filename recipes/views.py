@@ -9,6 +9,10 @@ from recipe import settings
 from django.contrib.auth.decorators import login_required
 import random
 
+def ingredients_num(ingredients_field):
+    lst_ing = ingredients_field.split('\n')
+    return len(lst_ing)
+
 def home(request):
     return render(request, 'recipes/home.html')
 
@@ -58,7 +62,11 @@ def new_dish(request):
     else:
         form = DishForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_dish = form.save(commit=False)
+            cd = form.cleaned_data
+            new_dish.owner = request.user
+            new_dish.ingredients_num = len(str(cd['ingredients_input']).split('\n'))
+            new_dish.save()
             return HttpResponseRedirect(reverse('recipes:home'))
     context = {'form': form}
     return render(request, 'recipes/new_dish.html', context)
