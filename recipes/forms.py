@@ -6,7 +6,7 @@ class DishForm(forms.ModelForm):
         model = Dish
         fields = ['category', 'name', 'introduction', 'ingredients_input', 'time_cook', 'recipe']
         labels = {'category': 'Категория блюда', 'name': 'Название', 'introduction': 'Краткое описание',
-                  'ingredients_input': 'Ингредиенты', 'time_cook': 'время приготовления', 'recipe': 'рецепт'}
+                  'ingredients_input': 'Ингредиенты. Вводите каждый ингредиент с новой строки!', 'time_cook': 'время приготовления', 'recipe': 'рецепт'}
 
 class ContactForm(forms.Form):
     subject = forms.CharField(max_length=100)

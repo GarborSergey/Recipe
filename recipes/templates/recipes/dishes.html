@@ -6,6 +6,8 @@
         <li>
             <h3>{{ dish }}</h3>
             <p>{{ dish.introduction }}</p>
+            <p>Категория: {{ dish.category }}/ Количество ингредиентов: {{ dish.ingredients_num }}/ Время приготовления: {{ dish.time_cook }}</p>
+            <p>Добавленно: {{ dish.date_added }}/ Автор {{ dish.owner }}</p>
             <a href="{% url 'recipes:dish' dish.id %}">Показать рецепт полностью</a>
         </li>
         {% empty %}
