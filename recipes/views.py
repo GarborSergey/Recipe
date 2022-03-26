@@ -78,9 +78,11 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+            if cd['email']:
+                cd['message'] += '\nОтправленно пользователем:' + cd['email']
             send_mail(
                 cd['subject'],
-                cd['message'] + ' отправленно пользователем:' + cd['email'],
+                cd['message'],
                 settings.EMAIL_HOST_USER,
                 ['garborfersru@gmail.com']
             )

@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 # В примере полного руководства по джанго
 from django.conf.urls import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Первое это строка с шаблоном(регулярное выражение)
@@ -28,4 +30,4 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     # Главная страница приложения users
     path('users/', include('users.urls', namespace='users'))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

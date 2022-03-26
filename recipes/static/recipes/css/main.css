@@ -1,0 +1,50 @@
+body {
+    background: #cce6f0;
+}
+
+header {
+    float: top;
+    text-align: center;
+    border-bottom: 5px solid #70c4c7;
+}
+
+main {
+    background: white;
+    padding-top:10px;
+    padding-left:200px;
+    padding-bottom:10px;
+    padding-right:200px;
+}
+
+header img {
+    width: 70px;
+    position: relative;
+    top: -5px;
+
+}
+
+header .logo {
+    font-size: 50px;
+    font-weight: bold;
+    position: relative;
+    top: 10px;
+
+}
+
+header p {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+header a {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    transition: transform .6s ease;
+    padding: 20px;
+}
+
+header a:hover {
+    color: #39696b;
+    transform: scale(1.3);
+}

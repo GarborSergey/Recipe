@@ -9,6 +9,6 @@ class DishForm(forms.ModelForm):
                   'ingredients_input': 'Ингредиенты. Вводите каждый ингредиент с новой строки!', 'time_cook': 'время приготовления', 'recipe': 'рецепт'}
 
 class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    email = forms.EmailField(required=False) # делает поле необязательным
-    message = forms.CharField(widget=forms.Textarea)
+    subject = forms.CharField(max_length=100, label='тема')
+    email = forms.EmailField(required=False, label='ваш e-mail') # делает поле необязательным
+    message = forms.CharField(widget=forms.Textarea, label='сообщение')
