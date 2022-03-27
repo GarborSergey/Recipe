@@ -12,12 +12,6 @@ class DishCategory(models.Model):
         return self.dish_category
 
 
-class Ingredients(models.Model):
-    """Ингредиенты"""
-    name = models.CharField(max_length=50, verbose_name='ингредиент')
-
-    def __str__(self):
-        return self.name
 
 class Dish(models.Model):
     """Блюдо"""
@@ -30,7 +24,6 @@ class Dish(models.Model):
     ingredients_num = models.IntegerField()
     time_cook = models.CharField("время приготовления", max_length=30)
     recipe = models.TextField("рецепт блюда")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

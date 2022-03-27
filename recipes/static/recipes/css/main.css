@@ -48,3 +48,25 @@ header a:hover {
     color: #39696b;
     transform: scale(1.3);
 }
+
+footer {
+    float: bottom;
+    text-align: center;
+    border-top: 5px solid #70c4c7;
+    padding-top:30px;
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    transition: transform .6s ease;
+    padding: 20px;
+    font-size: 20px;
+}
+
+footer a:hover {
+    color: #39696b;
+    transform: scale(1.3);
+}
+

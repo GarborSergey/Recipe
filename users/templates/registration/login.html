@@ -9,12 +9,3 @@
         <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
     </form>
 {% endblock content %}
-{% block footer %}
-    <hr>
-    <form action="{% url 'users:signup' %}">
-        <center>
-            Вы еще не зарегистрированы? Скорее испрвьте это!
-            <button name="submit">Регистрация</button>
-        </center>
-    </form>
-{% endblock footer %}

@@ -88,9 +88,12 @@ def contact(request):
             )
             return render(request, 'recipes/thanks_form.html')
     else:
-        form = ContactForm(
-            initial={'subject': 'Мне очень нравится ваш сайт!'}
-        )
+        if request.user.is_authenticated == True and request.user.email:
+            form = ContactForm(
+                initial={'email': request.user.email}
+            )
+        else:
+            form = ContactForm()
     return render(request, 'recipes/contact_form.html', {'form': form})
 
 def random_dish(request):

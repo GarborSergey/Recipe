@@ -2,7 +2,7 @@
 {% block title %}Сайт с рецептами от сереги{% endblock title %}
 {% block content %}
 
-    <div>
+    <div class="content">
         Добро пожаловать на сайт с рецептами! Здесь вы можете посмотреть
         рецепты блюд по категориям, попробовать их приготовить и написать отзыв,
         так же вы можете поделиться своим рецептом на этом сайте со всем
@@ -13,11 +13,5 @@
     </div>
 {% endblock content %}
 {% block footer %}
-    <hr>
-    <center>
-    <h3 align="center">Обратная связь: garborfersru@gmail.com</h3>
-    <form action="{% url 'recipes:contact' %}">
-        <button name="submit"><i class="bi bi-send"></i> Обратная связь</button>
-    </form>
-        </center>
+    <a href="{% url 'recipes:contact' %}"><i class="bi bi-send"></i> Обратная связь</a>
 {% endblock footer %}

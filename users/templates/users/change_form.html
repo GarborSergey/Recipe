@@ -1,0 +1,11 @@
+{% extends "recipes/base.html" %}
+{% block title %}change{% endblock title %}
+
+{% block content %}
+<form method="post" action="{% url 'users:change_profile' user.id  %}" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
+    <button name="submit" class="btn btn-primary">change</button>
+    <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
+</form>
+{% endblock content %}
