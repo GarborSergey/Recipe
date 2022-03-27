@@ -6,4 +6,18 @@
 <p>Рецепт!</p>
 <hr>
 <p>{{ dish.recipe }}</p>
+<form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
+    {% csrf_token %}
+    {{ form_comment.as_p }}
+     <button name="add" class="btn btn-primary">Комментировать</button>
+</form>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment.text }}</li>
+    {% empty %}
+    <li>Пока никто не комментировал этот рецепт</li>
+    {% endfor %}
+</ul>
+
+
 {% endblock content %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
-from .forms import DishForm, ContactForm
-from recipes.models import DishCategory, Dish
+from .forms import DishForm, ContactForm, CommentForm
+from recipes.models import DishCategory, Dish, Comment
 from django.urls import reverse
 from django.core.mail import send_mail
 from recipe import settings
@@ -35,7 +35,19 @@ def category(request, category_id):
 def dish(request, dish_id):
     """Выводит рецепт блюда"""
     dish = Dish.objects.get(id=dish_id)
-    context = {'dish': dish}
+    comments = Comment.objects.filter(dish=dish_id)
+    if request.method != 'POST':
+        form_comment = CommentForm()
+    else:
+        form_comment = CommentForm(request.POST)
+        if form_comment.is_valid():
+            comment = form_comment.save(commit=False)
+            comment.user = request.user
+            comment.dish = dish
+            comment.save()
+            context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
+            return render(request, 'recipes/dish.html', context)
+    context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
     return render(request, 'recipes/dish.html', context)
 
 
