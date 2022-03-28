@@ -17,6 +17,7 @@ class Dish(models.Model):
     """Блюдо"""
     category = models.ForeignKey(DishCategory, on_delete=models.CASCADE, verbose_name='категория блюда')
     name = models.CharField("наименование блюда", max_length=200)
+    image = models.ImageField(upload_to='images/recipes', null=True, blank=True, verbose_name='фото готового блюда')
     date_added = models.DateTimeField(auto_now_add=True)
     introduction = models.TextField('краткое описание блюда')
     ingredients_input = models.TextField(verbose_name='ингредиенты')

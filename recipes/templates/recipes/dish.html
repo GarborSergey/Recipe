@@ -1,43 +1,52 @@
 {% extends 'recipes/base.html' %}
 {% block title %}{{ dish.name }}{% endblock title %}
 {% block content %}
-<h2>{{ dish.name }}</h2>
-<p>{{ dish.introduction }}</p>
-<p>Рецепт!</p>
-<hr>
-<p>{{ dish.recipe }}</p>
-{% if user.is_authenticated %}
-<form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
-    {% csrf_token %}
-    {{ form_comment.as_p }}
-     <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
-</form>
-{% endif %}
 
-    {% for comment in comments %}
-
-        <div class="comment_text">
-            <div class="content">{{ comment.text }}</div>
-
-            <div class="comment">
-                <p>Пользователь: {{ comment.user }}</p>
-                <p>{{ comment.date_added }}</p>
-                {% if comment.user.image %}
-                    <div class="avatar">
-                        <img src="{{ MEDIA_URL }}{{ comment.user.image.url }}">
-                    </div>
-                {% else %}
-                {% load static %}
-                    <span class="avatar">
-                        <img src="{% static 'recipes/img/default_user.png' %}">
-                    </span>
-                {% endif %}
-            </div>
+    <h2>{{ dish.name }}</h2>
+    <p>{{ dish.introduction }}</p>
+    {% if dish.image %}
+        <div class="dish_image">
+            <img src="{{ MEDIA_URL }}{{ dish.image.url }}" style="height:500px; " >
         </div>
+    {% endif %}
+    <p>Рецепт!</p>
+    <hr>
+    <p>{{ dish.recipe }}</p>
+    {% if user.is_authenticated %}
+    <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
+        {% csrf_token %}
+        {{ form_comment.as_p }}
+         <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
+    </form>
+    {% endif %}
 
-    {% empty %}
-    <p>Пока никто не комментировал этот рецепт</p>
-    {% endfor %}
+        {% for comment in comments %}
+
+            <div class="comment_text">
+                <div class="content">{{ comment.text }}</div>
+
+                <div class="comment">
+                    <p>Пользователь: {{ comment.user }}</p>
+                    <p>{{ comment.date_added }}</p>
+                    {% if comment.user.image %}
+                        <div class="avatar">
+                            <img src="{{ MEDIA_URL }}{{ comment.user.image.url }}">
+                        </div>
+                    {% else %}
+                    {% load static %}
+                        <span class="avatar">
+                            <img src="{% static 'recipes/img/default_user.png' %}">
+                        </span>
+                    {% endif %}
+                    {% if request.user == comment.user %}
+                     <button name="delete" class="btn btn-info"><i class="bi bi-send-plus"></i> Удалить комментарий</button>
+                    {% endif %}
+                </div>
+            </div>
+
+        {% empty %}
+        <p>Пока никто не комментировал этот рецепт</p>
+        {% endfor %}
 
 
 {% endblock content %}

@@ -111,3 +111,9 @@ main .comment .avatar {
 main .content {
     white-space: pre-wrap;
 }
+
+main .dish_image {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

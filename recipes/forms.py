@@ -4,8 +4,8 @@ from .models import Dish, Comment
 class DishForm(forms.ModelForm):
     class Meta:
         model = Dish
-        fields = ['category', 'name', 'introduction', 'ingredients_input', 'time_cook', 'recipe']
-        labels = {'category': 'Категория блюда', 'name': 'Название', 'introduction': 'Краткое описание',
+        fields = ['category', 'name', 'image', 'introduction', 'ingredients_input', 'time_cook', 'recipe']
+        labels = {'category': 'Категория блюда', 'name': 'Название', 'image': 'фото готового блюда', 'introduction': 'Краткое описание',
                   'ingredients_input': 'Ингредиенты. Вводите каждый ингредиент с новой строки!', 'time_cook': 'время приготовления', 'recipe': 'рецепт'}
 
 class ContactForm(forms.Form):

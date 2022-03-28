@@ -75,7 +75,7 @@ def new_dish(request):
     if request.method != 'POST':
         form = DishForm()
     else:
-        form = DishForm(request.POST)
+        form = DishForm(request.POST, request.FILES)
         if form.is_valid():
             new_dish = form.save(commit=False)
             cd = form.cleaned_data
@@ -85,6 +85,26 @@ def new_dish(request):
             return HttpResponseRedirect(reverse('recipes:home'))
     context = {'form': form}
     return render(request, 'recipes/new_dish.html', context)
+
+# @login_required
+# def ChangeProfile(request, user_id):
+#     """Редактирует существующий профиль"""
+#     if request.user.id == user_id:
+#         user = CustomUser.objects.get(id=user_id)
+#         image = user.image
+#         if request.method != 'POST':
+#             # Исходный запрос; форма заполняется данными текущей записи
+#             form = CustomUserChangeForm(instance=user)
+#         else:
+#             # отправка данных POST; обработать данные
+#             form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
+#             if form.is_valid():
+#                 form.save()
+#                 return HttpResponseRedirect(reverse('recipes:home'))
+#         context = {'form': form, 'image': image}
+#         return render(request, 'users/change_form.html', context)
+#     else:
+#         raise Http404
 
 
 def contact(request):
