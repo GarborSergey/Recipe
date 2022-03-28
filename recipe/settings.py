@@ -145,4 +145,9 @@ EMAIL_HOST_PASSWORD = 'kQmie3WqpsZ6JhSPWAQ5'
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 
+# Основной url для управления медиафайлами
+MEDIA_URL = '/media/'
+
+# Путь хранения картинок
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 

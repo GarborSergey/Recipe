@@ -31,4 +31,8 @@ class Comment(models.Model):
     """Комментарий"""
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    text = models.TextField('Комментарий')
+    text = models.TextField('Комментарий', max_length=73)
+    date_added = models.DateField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.text

@@ -6,18 +6,38 @@
 <p>Рецепт!</p>
 <hr>
 <p>{{ dish.recipe }}</p>
+{% if user.is_authenticated %}
 <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
     {% csrf_token %}
     {{ form_comment.as_p }}
-     <button name="add" class="btn btn-primary">Комментировать</button>
+     <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
 </form>
-<ul>
+{% endif %}
+
     {% for comment in comments %}
-    <li>{{ comment.text }}</li>
+
+        <div class="comment_text">
+            <div class="content">{{ comment.text }}</div>
+
+            <div class="comment">
+                <p>Пользователь: {{ comment.user }}</p>
+                <p>{{ comment.date_added }}</p>
+                {% if comment.user.image %}
+                    <div class="avatar">
+                        <img src="{{ MEDIA_URL }}{{ comment.user.image.url }}">
+                    </div>
+                {% else %}
+                {% load static %}
+                    <span class="avatar">
+                        <img src="{% static 'recipes/img/default_user.png' %}">
+                    </span>
+                {% endif %}
+            </div>
+        </div>
+
     {% empty %}
-    <li>Пока никто не комментировал этот рецепт</li>
+    <p>Пока никто не комментировал этот рецепт</p>
     {% endfor %}
-</ul>
 
 
 {% endblock content %}

@@ -5,7 +5,7 @@
     <form method="post" action="{% url 'login' %}" class="form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button name="submit" class="btn btn-primary">Войти</button>
+        <button name="submit" class="btn btn-info">Войти</button>
         <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
     </form>
 {% endblock content %}

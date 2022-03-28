@@ -5,6 +5,6 @@
 <form action="{% url 'recipes:new_dish' %}" method="post" class="form">
     {% csrf_token %}
     {{ form.as_p }}
-     <button name="submit" class="btn btn-primary">Добавить новый рецепт</button>
+     <button name="submit" class="btn btn-info"><i class="bi bi-plus"></i>Добавить рецепт</button>
 </form>
 {% endblock content %}

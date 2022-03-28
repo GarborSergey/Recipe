@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView
 from users.forms import CustomUserChangeForm, CustomUserCreationForm
 from django.shortcuts import render
 from users.models import CustomUser
+from django.http import HttpResponseRedirect
 
 
 
@@ -19,17 +20,20 @@ def ChangeProfile(request, user_id):
     """Редактирует существующий профиль"""
     if request.user.id == user_id:
         user = CustomUser.objects.get(id=user_id)
+        image = user.image
         if request.method != 'POST':
             # Исходный запрос; форма заполняется данными текущей записи
             form = CustomUserChangeForm(instance=user)
         else:
             # отправка данных POST; обработать данные
-            form = CustomUserChangeForm(instance=user, data=request.POST)
+            form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
             if form.is_valid():
                 form.save()
-                from django.http import HttpResponseRedirect
                 return HttpResponseRedirect(reverse('recipes:home'))
-        context = {'form': form}
+        context = {'form': form, 'image': image}
         return render(request, 'users/change_form.html', context)
     else:
         raise Http404
+
+
+

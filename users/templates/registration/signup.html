@@ -5,7 +5,7 @@
 <form method="post" action="{% url 'users:signup' %}" class="form">
       {% csrf_token %}
       {{ form.as_p }}
-    <button name="submit" class="btn btn-primary">Регистрация</button>
+    <button name="submit" class="btn btn-info">Регистрация</button>
     <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
 </form>
 {% endblock content %}
