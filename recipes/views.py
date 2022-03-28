@@ -45,6 +45,9 @@ def dish(request, dish_id):
             comment.user = request.user
             comment.dish = dish
             comment.save()
+            form_comment = CommentForm(
+                initial={'text': ' '}
+            )
             context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
             return render(request, 'recipes/dish.html', context)
     context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
@@ -100,7 +103,7 @@ def contact(request):
             )
             return render(request, 'recipes/thanks_form.html')
     else:
-        if request.user.is_authenticated == True and request.user.email:
+        if request.user.is_authenticated and request.user.email:
             form = ContactForm(
                 initial={'email': request.user.email}
             )
@@ -109,7 +112,20 @@ def contact(request):
     return render(request, 'recipes/contact_form.html', {'form': form})
 
 def random_dish(request):
+    """Случайный рецепт"""
     all_dish = Dish.objects.all()
     dish = random.choice(all_dish)
-    context = {'dish': dish}
+    comments = Comment.objects.filter(dish=dish.id)
+    if request.method != 'POST':
+        form_comment = CommentForm()
+    else:
+        form_comment = CommentForm(request.POST)
+        if form_comment.is_valid():
+            comment = form_comment.save(commit=False)
+            comment.user = request.user
+            comment.dish = dish
+            comment.save()
+            context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
+            return render(request, 'recipes/dish.html', context)
+    context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
     return render(request, 'recipes/dish.html', context)
