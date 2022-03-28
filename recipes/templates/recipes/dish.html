@@ -23,11 +23,14 @@
         {% for comment in comments %}
 
             <div class="comment_text">
-                <div class="content">{{ comment.text }}</div>
+                <div class="comment_txt">{{ comment.text }}</div>
 
                 <div class="comment">
                     <p>Пользователь: {{ comment.user }}</p>
                     <p>{{ comment.date_added }}</p>
+                    {% if request.user == comment.user %}
+                        <p><a href="{% url 'recipes:delete_comment' comment.id %}">Удалить комментарий <i class="bi bi-trash3"></i></a></p>
+                    {% endif %}
                     {% if comment.user.image %}
                         <div class="avatar">
                             <img src="{{ MEDIA_URL }}{{ comment.user.image.url }}">
@@ -38,9 +41,7 @@
                             <img src="{% static 'recipes/img/default_user.png' %}">
                         </span>
                     {% endif %}
-                    {% if request.user == comment.user %}
-                     <button name="delete" class="btn btn-info"><i class="bi bi-send-plus"></i> Удалить комментарий</button>
-                    {% endif %}
+
                 </div>
             </div>
 

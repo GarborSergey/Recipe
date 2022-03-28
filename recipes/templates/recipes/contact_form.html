@@ -1,21 +1,17 @@
 {% extends 'recipes/base.html' %}
 {% block title %}Обратная связь{% endblock title %}
-{% block content %}
-<body>
-    <h1>Свяжитесь с нами</h1>
-    {% if form.errors %}
-<!--        не работает этот кусок-->
-        <p style="color: red;">
-            Исправьте следующие ошибки {{ form.errors|pluralize }}
-        </p>
-    {% endif %}
 
-    <form action="" method="post">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Отправить">
-    </form>
+{% block content %}
+{% load crispy_forms_tags %}
+<body>
+    <div class="contact">
+        <h1>Свяжитесь с нами</h1>
+
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Отправить" class="btn btn-info">
+        </form>
+    </div>
 </body>
 {% endblock content %}

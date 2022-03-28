@@ -19,6 +19,8 @@ urlpatterns = [
     # Страница с рецептом
     path('dish/<int:dish_id>', views.dish, name='dish'),
     # Страница со случайным рецептом
-    path('random_dish/', views.random_dish, name='random_dish')
+    path('random_dish/', views.random_dish, name='random_dish'),
+    # удаление комментария
+    path('delete/<int:comment_id>', views.delete_comment, name='delete_comment')
 
 ]

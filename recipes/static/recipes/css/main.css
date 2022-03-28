@@ -47,6 +47,7 @@ header a {
 header a:hover {
     color: #39696b;
     transform: scale(1.3);
+    text-decoration: none;
 }
 
 footer {
@@ -68,6 +69,7 @@ footer a {
 footer a:hover {
     color: #39696b;
     transform: scale(1.3);
+    text-decoration: none;
 }
 
 main .avatar {
@@ -88,7 +90,7 @@ main .avatar img {
 main .comment {
     text-align: left;
     padding-left:800px;
-    margin-bottom: -70px;
+    margin-bottom: -100px;
     padding-top: 20px;
 }
 
@@ -105,7 +107,7 @@ main .comment .avatar {
     position: relative;
     top: -px;
     right: -250px;
-    top: -100px;
+    top: -210px;
 }
 
 main .content {
@@ -116,4 +118,13 @@ main .dish_image {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+main .contact {
+    padding-left:400px;
+    padding-right:400px;
+}
+
+main .comment_txt {
+    padding-top:100px;
 }

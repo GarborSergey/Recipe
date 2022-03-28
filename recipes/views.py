@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
 from .forms import DishForm, ContactForm, CommentForm
@@ -86,26 +86,6 @@ def new_dish(request):
     context = {'form': form}
     return render(request, 'recipes/new_dish.html', context)
 
-# @login_required
-# def ChangeProfile(request, user_id):
-#     """Редактирует существующий профиль"""
-#     if request.user.id == user_id:
-#         user = CustomUser.objects.get(id=user_id)
-#         image = user.image
-#         if request.method != 'POST':
-#             # Исходный запрос; форма заполняется данными текущей записи
-#             form = CustomUserChangeForm(instance=user)
-#         else:
-#             # отправка данных POST; обработать данные
-#             form = CustomUserChangeForm(instance=user, data=request.POST, files=request.FILES)
-#             if form.is_valid():
-#                 form.save()
-#                 return HttpResponseRedirect(reverse('recipes:home'))
-#         context = {'form': form, 'image': image}
-#         return render(request, 'users/change_form.html', context)
-#     else:
-#         raise Http404
-
 
 def contact(request):
     """Обратная связь"""
@@ -131,21 +111,33 @@ def contact(request):
             form = ContactForm()
     return render(request, 'recipes/contact_form.html', {'form': form})
 
+# def random_dish(request):
+#     """Случайный рецепт"""
+#     all_dish = Dish.objects.all()
+#     dish = random.choice(all_dish)
+#     comments = Comment.objects.filter(dish=dish.id)
+#     if request.method != 'POST':
+#         form_comment = CommentForm()
+#     else:
+#         form_comment = CommentForm(request.POST)
+#         if form_comment.is_valid():
+#             comment = form_comment.save(commit=False)
+#             comment.user = request.user
+#             comment.dish = dish
+#             comment.save()
+#             context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
+#             return render(request, 'recipes/dish.html', context)
+#     context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
+#     return render(request, 'recipes/dish.html', context)
+
 def random_dish(request):
     """Случайный рецепт"""
     all_dish = Dish.objects.all()
     dish = random.choice(all_dish)
-    comments = Comment.objects.filter(dish=dish.id)
-    if request.method != 'POST':
-        form_comment = CommentForm()
-    else:
-        form_comment = CommentForm(request.POST)
-        if form_comment.is_valid():
-            comment = form_comment.save(commit=False)
-            comment.user = request.user
-            comment.dish = dish
-            comment.save()
-            context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
-            return render(request, 'recipes/dish.html', context)
-    context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
-    return render(request, 'recipes/dish.html', context)
+    url = f"recipes:dish"
+    return redirect(url, dish.id)
+
+def delete_comment(request, comment_id):
+    comment = Comment.objects.get(id=comment_id)
+    comment.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
