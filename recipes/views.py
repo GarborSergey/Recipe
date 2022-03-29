@@ -9,12 +9,16 @@ from recipe import settings
 from django.contrib.auth.decorators import login_required
 import random
 
+
 def ingredients_num(ingredients_field):
     lst_ing = ingredients_field.split('\n')
     return len(lst_ing)
 
+
 def home(request):
-    return render(request, 'recipes/home.html')
+    dish_categories = DishCategory.objects.all()
+    context = {'dish_categories': dish_categories}
+    return render(request, 'recipes/home.html', context)
 
 
 def dish_categories(request):
@@ -67,7 +71,9 @@ def search(request):
             dishes = Dish.objects.filter(name__icontains=q)
             context = {'dishes': dishes, 'query': q}
             return render(request, 'recipes/result_form.html', context)
+
     return render(request, 'recipes/search_form.html', {'errors': errors})
+
 
 @login_required
 def new_dish(request):
@@ -111,24 +117,6 @@ def contact(request):
             form = ContactForm()
     return render(request, 'recipes/contact_form.html', {'form': form})
 
-# def random_dish(request):
-#     """Случайный рецепт"""
-#     all_dish = Dish.objects.all()
-#     dish = random.choice(all_dish)
-#     comments = Comment.objects.filter(dish=dish.id)
-#     if request.method != 'POST':
-#         form_comment = CommentForm()
-#     else:
-#         form_comment = CommentForm(request.POST)
-#         if form_comment.is_valid():
-#             comment = form_comment.save(commit=False)
-#             comment.user = request.user
-#             comment.dish = dish
-#             comment.save()
-#             context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
-#             return render(request, 'recipes/dish.html', context)
-#     context = {'dish': dish, 'form_comment': form_comment, 'comments': comments}
-#     return render(request, 'recipes/dish.html', context)
 
 def random_dish(request):
     """Случайный рецепт"""
@@ -136,6 +124,7 @@ def random_dish(request):
     dish = random.choice(all_dish)
     url = f"recipes:dish"
     return redirect(url, dish.id)
+
 
 def delete_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)

@@ -2,10 +2,13 @@
 {% block title %}Регистрация{% endblock title %}
 
 {% block content %}
-<form method="post" action="{% url 'users:signup' %}" class="form">
+{% load crispy_forms_tags %}
+<div class="contact">
+<form method="post" action="{% url 'users:signup' %}" class="needs-validation">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy  }}
     <button name="submit" class="btn btn-info">Регистрация</button>
     <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
 </form>
+</div>
 {% endblock content %}

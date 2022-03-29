@@ -2,6 +2,7 @@
 {% block title %}change{% endblock title %}
 
 {% block content %}
+{% load crispy_forms_tags %}
 {{ user.username }}
 {% if user.image %}
     <span class="avatar">
@@ -15,7 +16,7 @@
 {% endif %}
 <form method="post" action="{% url 'users:change_profile' user.id  %}" class="form" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy  }}
     <button name="submit" class="btn btn-info">Сохранить изменения</button>
     <input type="hidden" name="next" value="{% url 'recipes:home' %}" />
 

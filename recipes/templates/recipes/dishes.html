@@ -1,16 +1,28 @@
 {% extends 'recipes/base.html' %}
 {% block title %}{{ category }}{% endblock title %}
 {% block content %}
-    <ul>
+<h2>Все рецепты из категории  <i class="bi bi-tag"></i> "{{ category }}"</h2>
+<hr>
+
         {% for dish in dishes %}
-        <li>
-            <h3>{{ dish }}</h3>
-            <p>{{ dish.introduction }}</p>
-            <p>Категория: {{ dish.category }}/ Количество ингредиентов: {{ dish.ingredients_num }}/ Время приготовления: {{ dish.time_cook }}</p>
-            <a href="{% url 'recipes:dish' dish.id %}">Показать рецепт полностью</a>
-        </li>
+                    <div class="intro">
+                        {% if dish.image %}
+                            <img src="{{ MEDIA_URL }}{{ dish.image.url }}" class="left">
+                        {% else %}
+                            {% load static %}
+                            <img src="{% static 'recipes/img/default_dish.jpg' %}" class="left">
+                        {% endif %}
+                        <h3>{{ dish }}</h3>
+                        <p>{{ dish.introduction }}</p>
+                        <p><i class="bi bi-list-ol"></i> Количество ингредиентов: {{ dish.ingredients_num }} <i class="bi bi-hourglass-split"></i> Время приготовления: {{ dish.time_cook }}</p>
+                        <form action="{% url 'recipes:dish' dish.id %}">
+                        <button name="submit" class="btn btn-info"><i class="bi bi-eye"></i> Посмотреть рецепт</button>
+                        </form>
+
+                    </div>
+                    <hr>
         {% empty %}
-        <li>Пока-что ни одного блюда не добавлено в эту категорию.</li>
+            <li>Пока-что ни одного блюда не добавлено в эту категорию.</li>
         {% endfor %}
-    </ul>
+
 {% endblock content %}

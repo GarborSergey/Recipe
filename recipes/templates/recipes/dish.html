@@ -1,6 +1,7 @@
 {% extends 'recipes/base.html' %}
 {% block title %}{{ dish.name }}{% endblock title %}
 {% block content %}
+{% load crispy_forms_tags %}
 
     <h2>{{ dish.name }}</h2>
     <p>{{ dish.introduction }}</p>
@@ -13,9 +14,10 @@
     <hr>
     <p>{{ dish.recipe }}</p>
     {% if user.is_authenticated %}
+
     <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
         {% csrf_token %}
-        {{ form_comment.as_p }}
+        {{ form_comment|crispy }}
          <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
     </form>
     {% endif %}

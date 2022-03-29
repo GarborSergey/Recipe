@@ -128,3 +128,38 @@ main .contact {
 main .comment_txt {
     padding-top:100px;
 }
+
+main .new_dish {
+    padding-left:300px;
+    padding-right:300px;
+}
+
+
+header .avatar img {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    top: -5px;
+}
+
+main .intro {
+    padding-left: 100px;
+    padding-bottom: 50px;
+}
+
+
+
+.left {
+   float: left;
+
+   max-height: 200px;
+   max-weight: 200px;
+   overflow: hidden;
+   box-shadow: 0px 0px 0px 3px #70c4c7;
+   margin-right: 15px;
+
+}
+
+
