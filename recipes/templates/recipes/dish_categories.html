@@ -1,11 +1,20 @@
 {% extends 'recipes/base.html' %}
 {% block title %}Категории блюд{% endblock title %}
 {% block content %}
-    <ul>
+<center><h1>Категории блюд</h1></center>
+<hr>
         {% for category in dish_categories %}
-        <li>
-            <h3><a href="{% url 'recipes:category' category.id %}"> {{ category }}</a></h3>
-        </li>
+
+
+        <div class="category">
+                        {% if category.image %}
+                            <img src="{{ MEDIA_URL }}{{ category.image.url }}" class="category_img">
+                        {% else %}
+                            {% load static %}
+                            <img src="{% static 'recipes/img/default_dish.jpg' %}" class="category_img">
+                        {% endif %}
+                        <a href="{% url 'recipes:category' category.id %}"><h3>{{ category.dish_category }}</h3></a>
+        </div>
+        <hr>
         {% endfor %}
-    </ul>
 {% endblock content %}

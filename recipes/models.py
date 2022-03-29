@@ -6,6 +6,7 @@ from users.models import CustomUser
 class DishCategory(models.Model):
     """Категория блюда (первое, второе итд)"""
     dish_category = models.CharField(max_length=150, verbose_name='категория блюда')
+    image = models.ImageField(upload_to='image/recipes', null=True, blank=True, verbose_name='Картики категорий')
 
     def __str__(self):
         """Возвращает строковое представление модели"""

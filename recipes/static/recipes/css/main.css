@@ -9,7 +9,7 @@ header {
 }
 
 main {
-    background: white;
+    background: #d5eef2;
     padding-top:10px;
     padding-left:200px;
     padding-bottom:10px;
@@ -146,9 +146,25 @@ header .avatar img {
 
 main .intro {
     padding-left: 100px;
-    padding-bottom: 50px;
+    padding-bottom: 30px;
 }
 
+.category_img {
+    float: left;
+    weight: 300px;
+    height: 300px;
+
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 3px #70c4c7;
+    margin-right: 15px;
+}
+
+
+
+main .category {
+    padding-left: 10px;
+    padding-bottom: 300px;
+}
 
 
 .left {
