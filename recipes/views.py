@@ -27,7 +27,15 @@ def home(request):
 def dish_categories(request):
     """Выводит все категории блюд"""
     dish_categories = DishCategory.objects.all()
-    context = {'dish_categories': dish_categories}
+    dishes = Dish.objects.all()
+    recipes_num = []
+    for category in dish_categories:
+        counter = 0
+        for dish in dishes:
+            if category == dish.category:
+                counter += 1
+        recipes_num.append([category, counter])
+    context = {'dish_categories': dish_categories, 'recipes_num': recipes_num}
     return render(request, 'recipes/dish_categories.html', context)
 
 

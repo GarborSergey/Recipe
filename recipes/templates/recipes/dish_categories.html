@@ -15,6 +15,9 @@
                         {% endif %}
                         <a href="{% url 'recipes:category' category.id %}"><h3><i class="bi bi-chevron-compact-right"></i>{{ category.dish_category }}</h3></a>
                         <p>{{ category.intro }}</p>
+                        <p><i class="bi bi-book"></i> Рецептов {% for name, numb in recipes_num %}
+                               {% if name == category %}
+                               {{ numb }}{% endif %} {% endfor %}</p>
         </div>
         <hr>
         {% endfor %}

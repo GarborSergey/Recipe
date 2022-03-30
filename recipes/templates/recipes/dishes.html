@@ -21,8 +21,7 @@
                            <p><i class="bi bi-star"></i> {{ dish.likes }} <i class="bi bi-chat-left"></i>
                                {% for name, numb in comments %}
                                {% if name == dish %}
-                               {{ numb }}{% endif %} {% endfor %} <i class="bi bi-person"></i> Автор: {{ dish.author }}</p>
-
+                               {{ numb }}{% endif %} {% endfor %} <i class="bi bi-person"></i> Автор: {{ dish.author }} </p>
                         <form action="{% url 'recipes:dish' dish.id %}">
                         <button name="submit" class="btn btn-info"><i class="bi bi-eye"></i> Посмотреть рецепт</button>
                         </form>
