@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import CustomUser
+
 
 # Create your models here.
 
@@ -7,6 +7,7 @@ class DishCategory(models.Model):
     """Категория блюда (первое, второе итд)"""
     dish_category = models.CharField(max_length=150, verbose_name='категория блюда')
     image = models.ImageField(upload_to='image/recipes', null=True, blank=True, verbose_name='Картики категорий')
+    intro = models.TextField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         """Возвращает строковое представление модели"""
@@ -25,16 +26,8 @@ class Dish(models.Model):
     ingredients_num = models.IntegerField()
     time_cook = models.CharField("время приготовления", max_length=30)
     recipe = models.TextField("рецепт блюда")
+    likes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
 
-class Comment(models.Model):
-    """Комментарий"""
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    text = models.TextField('Комментарий', max_length=73)
-    date_added = models.DateField(auto_now_add=True, blank=True, null=True)
-
-    def __str__(self):
-        return self.text

@@ -13,13 +13,25 @@
     <p>Рецепт!</p>
     <hr>
     <p>{{ dish.recipe }}</p>
+    <p>{{ dish.likes }}</p>
     {% if user.is_authenticated %}
 
-    <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
-        {% csrf_token %}
-        {{ form_comment|crispy }}
-         <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
-    </form>
+        {% if dish not in user.liked_dish.all %}
+        <form action="{% url 'recipes:like_dish' dish.id %}">
+             <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i>Лайк</button>
+        </form>
+        {% else %}
+        <form action="{% url 'recipes:delete_like' dish.id %}">
+            <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i>Больше не нравится</button>
+        </form>
+        {% endif %}
+
+        <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">
+            {% csrf_token %}
+            {{ form_comment|crispy }}
+             <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
+        </form>
+
     {% endif %}
 
         {% for comment in comments %}
@@ -48,7 +60,7 @@
             </div>
 
         {% empty %}
-        <p>Пока никто не комментировал этот рецепт</p>
+            <p>Пока никто не комментировал этот рецепт</p>
         {% endfor %}
 
 

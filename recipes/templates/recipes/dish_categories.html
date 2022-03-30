@@ -13,7 +13,8 @@
                             {% load static %}
                             <img src="{% static 'recipes/img/default_dish.jpg' %}" class="category_img">
                         {% endif %}
-                        <a href="{% url 'recipes:category' category.id %}"><h3>{{ category.dish_category }}</h3></a>
+                        <a href="{% url 'recipes:category' category.id %}"><h3><i class="bi bi-chevron-compact-right"></i>{{ category.dish_category }}</h3></a>
+                        <p>{{ category.intro }}</p>
         </div>
         <hr>
         {% endfor %}

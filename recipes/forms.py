@@ -1,5 +1,5 @@
 from django import forms
-from .models import Dish, Comment
+from .models import Dish
 
 class DishForm(forms.ModelForm):
     class Meta:
@@ -13,8 +13,4 @@ class ContactForm(forms.Form):
     email = forms.EmailField(required=False, label='ваш e-mail') # делает поле необязательным
     message = forms.CharField(widget=forms.Textarea, label='сообщение')
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['text']
-        labels = {'text': 'Прокомментируйте этот рецепт!'}
+

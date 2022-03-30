@@ -21,6 +21,9 @@ urlpatterns = [
     # Страница со случайным рецептом
     path('random_dish/', views.random_dish, name='random_dish'),
     # удаление комментария
-    path('delete/<int:comment_id>', views.delete_comment, name='delete_comment')
-
+    path('delete/<int:comment_id>', views.delete_comment, name='delete_comment'),
+    # Понравилось блюдо
+    path('like/<int:dish_id>', views.like_dish, name='like_dish'),
+    # Удалить блюдо из понравившегося
+    path('delete_like/<int:dish_id>', views.delete_like, name='delete_like')
 ]

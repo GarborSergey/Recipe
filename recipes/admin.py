@@ -1,5 +1,5 @@
 from django.contrib import admin
-from recipes.models import DishCategory, Dish, Comment
+from recipes.models import DishCategory, Dish
 
 class AdminDish(admin.ModelAdmin):
     list_filter = ('date_added',)
@@ -7,4 +7,4 @@ class AdminDish(admin.ModelAdmin):
 
 admin.site.register(DishCategory)
 admin.site.register(Dish, AdminDish)
-admin.site.register(Comment)
+

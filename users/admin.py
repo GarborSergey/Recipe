@@ -3,9 +3,10 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser
+from .models import CustomUser, Comment
 
 
 
 
 admin.site.register(CustomUser)
+admin.site.register(Comment)

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
-from .forms import DishForm, ContactForm, CommentForm
-from recipes.models import DishCategory, Dish, Comment
+from recipes.forms import DishForm, ContactForm
+from recipes.models import DishCategory, Dish
+from users.models import Comment
+from users.forms import CommentForm
 from django.urls import reverse
 from django.core.mail import send_mail
 from recipe import settings
@@ -129,4 +131,22 @@ def random_dish(request):
 def delete_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     comment.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+def like_dish(request, dish_id):
+    dish = Dish.objects.get(id=dish_id)
+    dish.likes += 1
+    dish.save()
+    user = request.user
+    user.liked_dish.add(dish)
+    user.save()
+    return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+def delete_like(request, dish_id):
+    dish = Dish.objects.get(id=dish_id)
+    dish.likes -= 1
+    dish.save()
+    user = request.user
+    user.liked_dish.remove(dish)
+    user.save()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
