@@ -17,13 +17,13 @@
     {% if user.is_authenticated %}
 
         {% if dish not in user.liked_dish.all %}
-        <form action="{% url 'recipes:like_dish' dish.id %}">
-             <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i>Лайк</button>
-        </form>
+            <form action="{% url 'recipes:like_dish' dish.id %}">
+                 <button name="add" class="btn btn-success"><i class="bi bi-hand-thumbs-up"></i> Супер!</button>
+            </form>
         {% else %}
-        <form action="{% url 'recipes:delete_like' dish.id %}">
-            <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i>Больше не нравится</button>
-        </form>
+            <form action="{% url 'recipes:delete_like' dish.id %}">
+                <button name="add" class="btn btn-dark"><i class="bi bi-hand-thumbs-down"></i> Больше не супер(</button>
+            </form>
         {% endif %}
 
         <form action="{% url 'recipes:dish' dish.id %}" method="post" class="form">

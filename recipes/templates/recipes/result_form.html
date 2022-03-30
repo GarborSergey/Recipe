@@ -17,7 +17,8 @@
                         {% endif %}
                         <h3>{{ dish }}</h3>
                         <p>{{ dish.introduction }}</p>
-                        <p><i class="bi bi-tag"></i> Категория: {{ dish.category }} <i class="bi bi-list-ol"></i> Количество ингредиентов: {{ dish.ingredients_num }} <i class="bi bi-hourglass-split"></i> Время приготовления: {{ dish.time_cook }}</p>
+                        <p><i class="bi bi-tag"></i> Категория: {{ dish.category }} <i class="bi bi-list-ol"></i> Количество ингредиентов: {{ dish.ingredients_num }} <i class="bi bi-hourglass-split"></i> Время приготовления: {{ dish.time_cook }}
+                            {% if dish.likes > 0 %}<i class="bi bi-star"></i> {{ dish.likes }} {% endif %}</p>
                         <form action="{% url 'recipes:dish' dish.id %}">
                         <button name="submit" class="btn btn-info"><i class="bi bi-eye"></i> Посмотреть рецепт</button>
                         </form>

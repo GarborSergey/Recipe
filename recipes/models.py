@@ -27,6 +27,8 @@ class Dish(models.Model):
     time_cook = models.CharField("время приготовления", max_length=30)
     recipe = models.TextField("рецепт блюда")
     likes = models.IntegerField(default=0)
+    author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.name

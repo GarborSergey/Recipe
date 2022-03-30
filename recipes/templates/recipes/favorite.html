@@ -1,7 +1,7 @@
 {% extends 'recipes/base.html' %}
-{% block title %}{{ category }}{% endblock title %}
+{% block title %}Избранное{% endblock title %}
 {% block content %}
-<h2>Все рецепты из категории  <i class="bi bi-tag"></i> "{{ category }}"</h2>
+<h2><i class="bi bi-star"></i> Избранные рецепты</h2>
 <hr>
 
 
@@ -18,13 +18,11 @@
                         <h3>{{ dish }}</h3>
                         <p>{{ dish.introduction }}</p>
                         <p><i class="bi bi-list-ol"></i> Количество ингредиентов: {{ dish.ingredients_num }} <i class="bi bi-hourglass-split"></i> Время приготовления: {{ dish.time_cook }}</p>
-                           <p><i class="bi bi-star"></i> {{ dish.likes }} <i class="bi bi-chat-left"></i>
-                               {% for name, numb in comments %}
-                               {% if name == dish %}
-                               {{ numb }}{% endif %} {% endfor %} <i class="bi bi-person"></i> Автор: {{ dish.author }}</p>
-
                         <form action="{% url 'recipes:dish' dish.id %}">
-                        <button name="submit" class="btn btn-info"><i class="bi bi-eye"></i> Посмотреть рецепт</button>
+                            <button name="submit" class="btn btn-info"><i class="bi bi-eye"></i> Посмотреть рецепт</button>
+                        </form>
+                        <form action="{% url 'recipes:delete_like' dish.id %}">
+                            <button name="add" class="btn btn-dark"><i class="bi bi-hand-thumbs-down"></i> Больше не супер(</button>
                         </form>
 
                     </div>
@@ -32,7 +30,7 @@
 
 
         {% empty %}
-            <li>Пока-что ни одного блюда не добавлено в эту категорию.</li>
+            <li>Пока что вы не добавили ни одного блюда в избранное</li>
         {% endfor %}
 
 {% endblock content %}

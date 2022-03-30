@@ -3,13 +3,14 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 import datetime
 from recipes.forms import DishForm, ContactForm
 from recipes.models import DishCategory, Dish
-from users.models import Comment
+from users.models import Comment, CustomUser
 from users.forms import CommentForm
 from django.urls import reverse
 from django.core.mail import send_mail
 from recipe import settings
 from django.contrib.auth.decorators import login_required
 import random
+
 
 
 def ingredients_num(ingredients_field):
@@ -34,7 +35,16 @@ def category(request, category_id):
     """Выводит все блюда из категории"""
     category = DishCategory.objects.get(id=category_id)
     dishes = category.dish_set.all()
-    context = {'category': category, 'dishes': dishes}
+    comments = Comment.objects.all()
+    # далее супер костыль по передаче количества комментариев у данного блюда в шаблон
+    comments_num = []
+    for dish in dishes:
+        counter = 0
+        for comment in comments:
+            if comment.dish == dish:
+                counter += 1
+        comments_num.append([dish, counter])
+    context = {'category': category, 'dishes': dishes, 'comments': comments_num}
     return render(request, 'recipes/dishes.html', context)
 
 
@@ -87,7 +97,7 @@ def new_dish(request):
         if form.is_valid():
             new_dish = form.save(commit=False)
             cd = form.cleaned_data
-            new_dish.owner = request.user
+            new_dish.author = request.user
             new_dish.ingredients_num = len(str(cd['ingredients_input']).split('\n'))
             new_dish.save()
             return HttpResponseRedirect(reverse('recipes:home'))
@@ -133,7 +143,9 @@ def delete_comment(request, comment_id):
     comment.delete()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
+
 def like_dish(request, dish_id):
+    """Лайк блюду"""
     dish = Dish.objects.get(id=dish_id)
     dish.likes += 1
     dish.save()
@@ -142,7 +154,9 @@ def like_dish(request, dish_id):
     user.save()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
+
 def delete_like(request, dish_id):
+    """Удалить лайк у блюда"""
     dish = Dish.objects.get(id=dish_id)
     dish.likes -= 1
     dish.save()
@@ -150,3 +164,10 @@ def delete_like(request, dish_id):
     user.liked_dish.remove(dish)
     user.save()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+
+@login_required
+def favorite(request, user_id):
+    user = CustomUser.objects.get(id=request.user.id)
+    dishes = user.liked_dish.all()
+    context = {'dishes': dishes}
+    return render(request, 'recipes/favorite.html', context)

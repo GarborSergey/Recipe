@@ -25,5 +25,7 @@ urlpatterns = [
     # Понравилось блюдо
     path('like/<int:dish_id>', views.like_dish, name='like_dish'),
     # Удалить блюдо из понравившегося
-    path('delete_like/<int:dish_id>', views.delete_like, name='delete_like')
+    path('delete_like/<int:dish_id>', views.delete_like, name='delete_like'),
+    # Страница с избранным
+    path('favorite/<int:user_id>', views.favorite, name='favorite')
 ]

@@ -3,9 +3,10 @@ from django.db import models
 from recipes.models import Dish
 
 class CustomUser(AbstractUser):
+    """Пользователи"""
     fullname = models.CharField(max_length=60, blank=True)
     image = models.ImageField(upload_to='images/users', null=True, blank=True, verbose_name='аватар')
-    liked_dish = models.ManyToManyField(Dish, blank=True, null=True)
+    liked_dish = models.ManyToManyField(Dish)
 
 
 class Comment(models.Model):
