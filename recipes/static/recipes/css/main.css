@@ -163,7 +163,7 @@ main .intro {
 
 main .category {
     padding-left: 10px;
-    padding-bottom: 300px;
+    padding-bottom: 180px;
 }
 
 
@@ -178,4 +178,56 @@ main .category {
 
 }
 
+.recipe_image {
+    max-height: 500px;
+    box-shadow: 0px 0px 0px 3px #70c4c7;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.recipe_title {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.recipe_introduction {
+    font-size: 25px;
+    padding-left: 50px;
+    font-style: italic
+}
+
+.recipe_ing {
+    border: 3px solid #70c4c7;
+    padding: 10px;
+    margin-right: 1100px;
+}
+
+.time_num {
+    font-size: 20px;
+    padding-left: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.container {
+    height: 100vh;
+    wight: 100vw;
+    padding-left: -200px;
+    padding-right: -200px;
+
+}
+
+.shaped {
+    background: url("/media/images/default_dish.jpg");
+    height: 100vh;
+    width: 20vw;
+    background-size: cover;
+    float: right;
+    shape-outside: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
+    shape-margin: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 100%);
+}
 

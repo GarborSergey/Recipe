@@ -3,17 +3,7 @@
 
 {% block content %}
 {% load crispy_forms_tags %}
-{{ user.username }}
-{% if user.image %}
-    <span class="avatar">
-        <img src="{{ MEDIA_URL }}{{ user.image.url }}">
-    </span>
-{% else %}
-    {% load static %}
-    <span class="avatar">
-        <img src="{% static 'recipes/img/default_user.png' %}">
-    </span>
-{% endif %}
+
 <form method="post" action="{% url 'users:change_profile' user.id  %}" class="form" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form|crispy  }}

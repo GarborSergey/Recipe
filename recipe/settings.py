@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-pw!j)wdt#=-67m%%oe*qkfslxs#vm+_xsv&e7g@j^*99@bpgr$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -56,6 +57,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 ROOT_URLCONF = 'recipe.urls'
 
@@ -124,11 +129,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'recipes/static',
-]
+# Extra lookup directories for collectstatic to find static files
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'), BASE_DIR / 'recipes/static', # ВОТ ТУТ СМОТРИ!
+)
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -153,4 +163,8 @@ MEDIA_URL = '/media/'
 
 # Путь хранения картинок
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+import dj_database_url
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
 

@@ -145,13 +145,13 @@ def random_dish(request):
     url = f"recipes:dish"
     return redirect(url, dish.id)
 
-
+@login_required
 def delete_comment(request, comment_id):
     comment = Comment.objects.get(id=comment_id)
     comment.delete()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
-
+@login_required
 def like_dish(request, dish_id):
     """Лайк блюду"""
     dish = Dish.objects.get(id=dish_id)
@@ -162,7 +162,7 @@ def like_dish(request, dish_id):
     user.save()
     return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
 
-
+@login_required
 def delete_like(request, dish_id):
     """Удалить лайк у блюда"""
     dish = Dish.objects.get(id=dish_id)

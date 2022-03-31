@@ -2,18 +2,27 @@
 {% block title %}{{ dish.name }}{% endblock title %}
 {% block content %}
 {% load crispy_forms_tags %}
-
-    <h2>{{ dish.name }}</h2>
-    <p>{{ dish.introduction }}</p>
+    <div class="recipe_title">{{ dish.name }}</div>
+    <div class="recipe_introduction">{{ dish.introduction }}</div>
+    <div class="time_num">
+        <p>Время приготовления <i class="bi bi-clock"></i> - {{ dish.time_cook }}</p>
+        <p>Количество ингредиентов <i class="bi bi-list"></i> {{ dish.ingredients_num }} шт</p>
+        <p>Количество оценок <i class="bi bi-hand-thumbs-up"></i> {{ dish.likes }}</p>
+        <p>Опубликовано {{ dish.date_added|date:"d.m.Y"  }}</p>
+    </div>
+    <hr>
     {% if dish.image %}
         <div class="dish_image">
-            <img src="{{ MEDIA_URL }}{{ dish.image.url }}" style="height:500px; " >
+            <img src="{{ MEDIA_URL }}{{ dish.image.url }}" class="recipe_image" >
         </div>
     {% endif %}
-    <p>Рецепт!</p>
     <hr>
-    <p>{{ dish.recipe }}</p>
-    <p>{{ dish.likes }}</p>
+    <div class="recipe_ing">
+        <p style="text-align: center; font-weight: bold;">Ингредиенты</p>
+        {{ dish.ingredients_input|linebreaks }}
+    </div>
+    <p>{{ dish.recipe|linebreaks }}</p>
+    <hr>
     {% if user.is_authenticated %}
 
         {% if dish not in user.liked_dish.all %}
@@ -31,7 +40,8 @@
             {{ form_comment|crispy }}
              <button name="add" class="btn btn-info"><i class="bi bi-send-plus"></i> Комментировать</button>
         </form>
-
+        {% else %}
+        <h2>Зарегистрируйтесь чтобы оценить рецепт и написать комментарий.</h2>
     {% endif %}
 
         {% for comment in comments %}
