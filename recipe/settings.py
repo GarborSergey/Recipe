@@ -135,7 +135,7 @@ STATIC_URL = '/static/'
 
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'), BASE_DIR / 'recipes/static', # ВОТ ТУТ СМОТРИ!
+    os.path.join(PROJECT_ROOT, 'recipe/static'),
 )
 
 
